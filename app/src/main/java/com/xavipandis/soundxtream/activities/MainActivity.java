@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,12 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.xavipandis.soundxtream.R;
+import com.xavipandis.soundxtream.activities.track.TrackDetailFragment;
+import com.xavipandis.soundxtream.activities.track.TrackListFragment;
 import com.xavipandis.soundxtream.managers.TokenStoreManager;
-import com.xavipandis.soundxtream.managers.UserLoginManager;
-import com.xavipandis.soundxtream.model.UserToken;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,14 +31,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        })*/;
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,11 +52,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }*/
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count == 1) {
+            moveTaskToBack(false);
+        } else {
+            String title = getSupportFragmentManager().getBackStackEntryAt(count - 2).getName();
+
+            getSupportFragmentManager().popBackStack();
+
+            getSupportActionBar().setTitle(title);
+
         }
     }
 
@@ -88,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                     MainFragment.newInstance(token,refresh,username);
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content_main, mainFragment, "mainFragment")
+                    .replace(R.id.content_main, mainFragment)
                     .commit();
         }
 
@@ -97,7 +107,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -131,14 +141,15 @@ public class MainActivity extends AppCompatActivity
                     MainFragment.newInstance(token,refresh,username);
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content_main, mainFragment, "mainFragment")
+                    .replace(R.id.content_main, mainFragment)
                     .commit();
         } else if (id == R.id.nav_gallery) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.content_main, TrackDetailFragment.newInstance(),"trackDetail")
-                    .addToBackStack("mainFragment")
+                    .replace(R.id.content_main, TrackListFragment.newInstance())
+                    .addToBackStack(null)
                     .commit();
+
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -166,4 +177,5 @@ public class MainActivity extends AppCompatActivity
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
+
 }

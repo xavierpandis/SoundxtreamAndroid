@@ -2,12 +2,13 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/trackDetailLayout">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="299dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -15,7 +16,8 @@
             app:toolbarId="@+id/toolbar"
             app:layout_scrollFlags="enterAlways|enterAlwaysCollapsed"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
-            app:contentScrim="?attr/colorPrimary">
+            app:contentScrim="?attr/colorPrimary"
+            android:fitsSystemWindows="false">
 
             <ImageView
                 android:id="@+id/app_bar_image"
@@ -26,14 +28,56 @@
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="1.0" />
 
-            <ImageView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                app:srcCompat="@drawable/track_detail"
-                android:id="@+id/track_detail_image"
-                android:layout_gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/track_detail"
+                    android:id="@+id/track_detail_image"
+                    android:layout_gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_height="157dp"
+                    android:layout_weight="0.93" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Evolve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trackDetailName"
+                        android:layout_below="@+id/track_detail_image"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:background="@android:color/background_dark"
+                        android:textColor="@android:color/background_light"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp" />
+
+                    <TextView
+                        android:text="Julian Calor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trackDetailArtistName"
+                        android:layout_below="@+id/trackDetailArtistName"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@android:color/background_dark"
+                        android:textColor="@android:color/background_light"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_marginTop="3dp" />
+                </LinearLayout>
+            </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -46,34 +90,63 @@
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:text="Evolve"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView2"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="24sp" />
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
 
-                <TextView
-                    android:text="Julian Calor"
+                    <SeekBar
+                        android:layout_width="226dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/seekBar"
+                        android:max="100"
+                        android:progress="20"
+                        android:layout_gravity="center"
+                        android:progressBackgroundTint="@android:color/darker_gray" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView3"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:text="PREV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button2"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:text="PLAY/PAUSE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button3"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:text="NEXT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button4"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </RelativeLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
